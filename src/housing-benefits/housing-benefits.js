@@ -40,7 +40,6 @@ class HousingBenefits extends React.Component {
 		storage.saveState(this.componentName, this.state)
 	}
 
-
 	render() {
 		return (
 			<section className="housing-benefits">
