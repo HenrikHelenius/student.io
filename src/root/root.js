@@ -15,6 +15,8 @@ function Root() {
 			<HousingBenefits></HousingBenefits>
 			<br/><br/><br/><br/>
 			<Loans></Loans>
+			<br/><br/><br/><br/>
+			<Bank></Bank>
 		</main>
 	);
 }
