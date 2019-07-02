@@ -12,7 +12,8 @@ function Root() {
 			<header>
 				<h1>Student.io</h1>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque, blanditiis corporis cupiditate dolore dolorum exercitationem id incidunt ipsum maxime minima nulla obcaecati odio pariatur quos recusandae sed vel voluptate.
+					One application for checking quickly your all your student benefits. The app let's you calculate your current student benefits, the amount of housing benefits and check your student loan status.
+					Student.io is your simplest way to check all your student financials.
 				</p>
 			</header>
 
