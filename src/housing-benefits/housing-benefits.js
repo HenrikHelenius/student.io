@@ -14,6 +14,7 @@ class HousingBenefits extends React.Component {
 			kommun: 1,
 			income: 0,
 			rent: 0,
+			unemployed: 0,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -136,6 +137,13 @@ class HousingBenefits extends React.Component {
 						Eläke
 						Opintoraha
 						Pääoma- tai muu tulo */}
+						<label htmlFor="">Unemployment benefit</label>
+						<input
+							type="number"
+							placeholder="Unemployment benefit"
+							onChange={e => this.setState({ rent: e.target.value })}
+							value={this.state.unemployed}
+						/>
 						<label htmlFor="">Rent</label>
 						<input
 							type="number"
@@ -143,6 +151,7 @@ class HousingBenefits extends React.Component {
 							onChange={e => this.setState({ rent: e.target.value })}
 							value={this.state.rent}
 						/>
+
 						<input type="submit" value="Submit" />
 					</form>
 				</article>
