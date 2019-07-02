@@ -50,7 +50,7 @@ class Loans extends React.Component {
 	render() {
 		return (
 			<section className="loans">
-
+				Iiro
 				<form onSubmit={this.handleSubmit}>
 					<h1> Modify your loan details </h1>
 					<div>
@@ -107,6 +107,7 @@ class Loans extends React.Component {
 						</div>
 					</div>
 					<input type="submit" value="Submit" />
+
 				</form>
 
 			</section>
