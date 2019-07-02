@@ -40,7 +40,7 @@ class HousingBenefits extends React.Component {
 
 
 		const baseExcess = () => {
-			alert('Fuck me base')
+
 			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 22 * this.state.children));
 		}
 
@@ -48,22 +48,22 @@ class HousingBenefits extends React.Component {
 		 * This check household
 		 */
 		const householdSize = () => {
-			alert('Fuck me')
+
 			return this.state.adults + this.state.children
 		}
 
-		const okeyed = (kommungrupp) => {
-			alert('Fuck me here')
-			const max = 1 - householdSize()
-			const kommun = 1 - kommungrupp
+		const okeyed = () => {
 
-			if (this.state.rent < arr[max][kommun]) return this.state.rent
+			const max = 1 - householdSize()
+			const kommungrupp = 1 - this.state.kommun
+
+			if (this.state.rent < arr[max][kommungrupp]) return this.state.rent
 			else {
 				if (householdSize > 4) {
-					const allowance = arr[max][kommun] + 5 * arr[5][kommun]
+					const allowance = arr[max][kommungrupp] + 5 * arr[5][kommungrupp]
 					return allowance
 				} else {
-					return arr[max][kommun]
+					return arr[max][kommungrupp]
 				}
 			}
 
@@ -71,11 +71,12 @@ class HousingBenefits extends React.Component {
 
 		const benefit = () => {
 			alert('Fuck me benefit')
-			const check = okeyed() - baseExcess()
-			return check
+			const okey = okeyed()
+			const base = baseExcess()
+			return okey - base
 		}
 
-		return +benefit();
+		return benefit();
 	}
 
 	//// Events
@@ -93,7 +94,7 @@ class HousingBenefits extends React.Component {
 		return (
 			<section className="housing-benefits">
 				Kasper
-Childre
+Children
 				<form onSubmit={this.handleSubmit}>
 					<input
 						type="number"
