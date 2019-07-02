@@ -14,10 +14,13 @@ class StudentBenefits extends React.Component {
 			isIndependent: false,
 			isMarried: false,
 			studyBegin: "0.0.0",
+      totalCredits: 0,
+      currentCredits: 0,
 			credits: {
 				total: 0,
 				current: 0,
 			},
+      tuki: 0,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -40,16 +43,16 @@ class StudentBenefits extends React.Component {
 	vuosituloraja = [22557, 21234, 19911, 18588, 17265, 15942, 14619, 13296, 11973, 10650, 9327, 8004];
 
 	noSupportThisYear() {
-		const { credits, ownIncome } = this.state;
-		return credits.current < 20 || ownIncome > this.vuosituloraja[0] ;
+		const { currentCredits, ownIncome } = this.state;
+		return currentCredits < 20 || ownIncome > this.vuosituloraja[0] ;
 	}
 
 	//calculates this years supportmonths
 	currentSupportMonths() {
-		const { credits, ownIncome } = this.state
+		const { currentCredits, ownIncome } = this.state
 		const closestToOwnIncome = this.closest(this.vuostituloraja, ownIncome)
 		const amountOfSupportLeft = this.vuosituloraja.findIndex(i => i === closestToOwnIncome)
-		const creditsPerMonth = credits.current % 9
+		const creditsPerMonth = currentCredits% 9
 		return Math.min(creditsPerMonth, amountOfSupportLeft) ;
 	}
 
@@ -81,10 +84,7 @@ class StudentBenefits extends React.Component {
 	//1.8.2019 alkaen
 	parentIncomeInfluence() {
 		const { parentIncome, age, isIndependent } = this.state;
-		if (this.noSupportThisYear()) {
-			return 0;
-		}
-		else if (parentIncome < 41400 && isIndependent) {
+		if (parentIncome < 41400 && isIndependent) {
 			if(age < 17) {
 				return 100; //not real value
 			}
@@ -135,7 +135,10 @@ class StudentBenefits extends React.Component {
 
 	opintoTuki = () => {
 		const { children, age, isMarried, isIndependent } = this.state;
-		if (children) {
+		if (this.noSupportThisYear()) {
+			return 0;
+		}
+		else if (children) {
 			return +325.28;
 		}
 		else if (isMarried) {
@@ -167,8 +170,8 @@ class StudentBenefits extends React.Component {
 	}
 
 	handleSubmit(event) {
-		const result = this.calculateShit();
-		alert('Result is: ' + result); // TODO: set to state or something
+		const result = this.opintoTuki();
+    this.setState({ tuki: result });
 		event.preventDefault();
 
 		// Save to local storage when something has been changed
@@ -177,6 +180,7 @@ class StudentBenefits extends React.Component {
 
 	render() {
     const tuki = this.opintoTuki()
+    console.log(this.state)
 		return (
 			<section className="student-benefits">
 
@@ -195,7 +199,7 @@ class StudentBenefits extends React.Component {
 							onChange={e => this.setState({ children: e.target.value })} //todo
 							value={this.state.children}
 						/>
-						<label htmlFor="isUniversity">Are you studying at University?</label>
+						<label htmlFor="isUniversity">Are you studying at a University?</label>
 						<input
               name="isUniversity"
 							type="checkbox"
@@ -206,8 +210,8 @@ class StudentBenefits extends React.Component {
 						<input
               name="age"
 							type="number"
-							placeholder="cAge"
-							onChange={e => this.setState({ age: e.target.value })}
+							placeholder="Age"
+							onChange={e => this.setState({ age: +e.target.value })}
 							value={this.state.age}
 						/>
 						<label htmlFor="income">Parent Income</label>
@@ -215,20 +219,42 @@ class StudentBenefits extends React.Component {
               name="income"
 							type="number"
 							placeholder="Income"
-							onChange={e => this.setState({ parentIncome: e.target.value })}
+							onChange={e => this.setState({ parentIncome: +e.target.value })}
 							value={this.state.parentIncome}
 						/>
-						<label htmlFor="married">Are you married?</label>
+						<label htmlFor="married">are you married?</label>
 						<input
               name="married"
 							type="checkbox"
-							onChange={e => this.setState({ isMarried: e.target.value })} //todo
-							value={this.state.isMarried}
+							onChange={e => this.setstate({ ismarried: e.target.value })} //todo
+							value={this.state.ismarried}
 						/>
-						<input type="submit" value="Submit" />
+						<label htmlFor="independent">Do you live with your parents?</label>
+						<input
+              name="independent"
+							type="checkbox"
+							onChange={e => this.setstate({ isIndependent: e.target.value })} //todo
+							value={!this.state.isIndependent}
+						/>
+						<label htmlFor="totalCredits">Total study credits so far</label>
+						<input
+              name="totalCredits"
+							type="number"
+							placeholder="Total Credits"
+							onChange={e => this.setState({ totalCredits: +e.target.value })}
+							value={this.state.totalCredits}
+						/>
+						<label htmlFor="currentCredits">Study credits so far this year</label>
+						<input
+              name="currentCredits"
+							type="number"
+							placeholder="Current Credits"
+							onChange={e => this.setState({ currentCredits: +e.target.value })}
+							value={this.state.currentCredits}
+						/>
+						<input type="submit" value="Calculate" />
 					</form>
-          <h2>Calculated Benefits:</h2>
-          <p>{tuki}</p>
+          <p>Calculated Benefit: <b>{tuki}€</b></p>
 				</article>
 
 			</section>
