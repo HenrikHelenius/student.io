@@ -16,7 +16,7 @@ class HousingBenefits extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
 	}
@@ -54,7 +54,7 @@ class HousingBenefits extends React.Component {
 						onChange={e => this.setState({children: e.target.value})}
 						value={this.state.children}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 
 			</section>
