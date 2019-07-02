@@ -23,7 +23,7 @@ class StudentBenefits extends React.Component {
 	//// Events
 
 	handleChange(event) {
-		this.setState({children: event.target.value});
+		this.setState({ children: event.target.value });
 	}
 
 	handleSubmit(event) {
@@ -35,14 +35,14 @@ class StudentBenefits extends React.Component {
 	render() {
 		return (
 			<section className="student-benefits">
-
+				Basti
 				<form onSubmit={this.handleSubmit}>
 					<input
 						type="number"
 						min="0"
 						max="10"
 						placeholder="Children"
-						onChange={e => this.setState({children: e.target.value})}
+						onChange={e => this.setState({ children: e.target.value })}
 						value={this.state.children}
 					/>
 					<input type="submit" value="Submit" />
