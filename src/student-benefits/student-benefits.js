@@ -9,6 +9,7 @@ const Checkbox = (props) => {
 	</div>
 	)
 }
+import storage from "../helpers/localStorage.helper";
 
 class StudentBenefits extends React.Component {
     constructor(props) {
@@ -34,6 +35,12 @@ class StudentBenefits extends React.Component {
     //Only for 300 Yleinen tutkimus (add support for others later)
     //Alempi, Ylempi, Total.
     supportMonths = [30, 21, 48];
+	componentDidMount() {
+		// Load state
+		this.setState(storage.loadState(this.componentName));
+	}
+
+	//// Own business logic
 
 	//1.8.2019 alkaen
 	parentIncomeInfluence() {
@@ -80,11 +87,14 @@ class StudentBenefits extends React.Component {
         this.setState({children: event.target.value});
     }
 
-    handleSubmit(event) {
-        const result = this.opintoTuki();
-        alert('Result is: ' + result); // TODO: set to state or something
-        event.preventDefault();
-    }
+	handleSubmit(event) {
+		const result = this.calculateShit();
+		alert('Result is: ' + result); // TODO: set to state or something
+		event.preventDefault();
+
+		// Save to local storage when something has been changed
+		storage.saveState(this.componentName, this.state)
+	}
 
     render() {
         return (
@@ -102,17 +112,22 @@ class StudentBenefits extends React.Component {
 4. change onChange={e => this.setState({x: e.target.value})}
 */
 
-/*           <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="number"
-                        min="0"
-                        max="10"
-                        placeholder="Children"
-                        onChange={e => this.setState({children: e.target.value})}
-                        value={this.state.children}
-                    />
-                    <input type="submit" value="Submit" />
-                </form>
+/*         	render() {
+		return (
+			<section className="student-benefits">
+				Basti
+				<form onSubmit={this.handleSubmit}>
+					<input
+						type="number"
+						min="0"
+						max="10"
+						placeholder="Children"
+						onChange={e => this.setState({ children: e.target.value })}
+						value={this.state.children}
+					/>
+					<input type="submit" value="Submit"/>
+				</form>
+
 */
 
 /*
