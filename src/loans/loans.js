@@ -76,7 +76,9 @@ class Loans extends React.Component {
 				</LoansVisualiser>
 
 				<form onSubmit={this.handleSubmit}>
-					<h1> Modify your loan details </h1>
+					<h3>
+						Modify your loan details
+					</h3>
 					<div>
 						<div className="label">
 							Amount of years studying (in years)

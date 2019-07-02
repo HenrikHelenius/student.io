@@ -20,7 +20,6 @@ class HousingBenefits extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -48,7 +47,7 @@ class HousingBenefits extends React.Component {
 		 */
 		const householdSize = () => {
 			return +this.state.adults + +this.state.children;
-		}
+		};
 
 		const okeyed = () => {
 
@@ -91,10 +90,9 @@ class HousingBenefits extends React.Component {
 	render() {
 		return (
 			<section className="housing-benefits">
-				Kasper
 
 				<form onSubmit={this.handleSubmit}>
-					Children
+					<label htmlFor="">Children</label>
 					<input
 						type="number"
 						min="0"
@@ -103,7 +101,7 @@ class HousingBenefits extends React.Component {
 						onChange={e => this.setState({ children: e.target.value })}
 						value={this.state.children}
 					/>
-					Adults
+					<label htmlFor="">Adults</label>
 					<input
 						type="number"
 						min="1"
@@ -112,7 +110,7 @@ class HousingBenefits extends React.Component {
 						onChange={e => this.setState({ adults: e.target.value })}
 						value={this.state.adults}
 					/>
-					Kommun
+					<label htmlFor="">Kommun</label>
 					<input
 						type="number"
 						min="1"
@@ -121,25 +119,22 @@ class HousingBenefits extends React.Component {
 						onChange={e => this.setState({ kommun: e.target.value })}
 						value={this.state.kommun}
 					/>
-					Income
+					<label htmlFor="">Income</label>
 					<input
 						type="number"
-
 						placeholder="Income"
 						onChange={e => this.setState({ income: e.target.value })}
 						value={this.state.income}
 					/>
-					Rent
+					<label htmlFor="">Rent</label>
 					<input
 						type="number"
-
 						placeholder="Income"
 						onChange={e => this.setState({ rent: e.target.value })}
 						value={this.state.rent}
 					/>
 					<input type="submit" value="Submit" />
 				</form>
-
 
 			</section>
 		);
