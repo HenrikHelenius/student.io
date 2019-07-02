@@ -38,8 +38,12 @@ class HousingBenefits extends React.Component {
 			[139, 132, 119, 114]
 		];
 
+		const totalIncome = () => {
+			return +this.state.income + +this.state.unemployed
+		}
+
 		const baseExcess = () => {
-			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 221 * this.state.children));
+			return 0.42 * ((totalIncome() - 300) - (597 + 99 * this.state.adults + 221 * this.state.children));
 		};
 
 		/**
@@ -67,12 +71,9 @@ class HousingBenefits extends React.Component {
 		};
 
 		const benefit = () => {
-			alert('Fuck me benefit');
-			const okey = okeyed();
-			const base = baseExcess();
-			return (okey - base) * 0.80
+			return (okeyed() - baseExcess()) * 0.80
 		};
-		console.log('This is size: ' + householdSize());
+
 		return benefit();
 
 	}
@@ -141,7 +142,7 @@ class HousingBenefits extends React.Component {
 						<input
 							type="number"
 							placeholder="Unemployment benefit"
-							onChange={e => this.setState({ rent: e.target.value })}
+							onChange={e => this.setState({ unemployed: e.target.value })}
 							value={this.state.unemployed}
 						/>
 						<label htmlFor="">Rent</label>
