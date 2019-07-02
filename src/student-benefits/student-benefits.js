@@ -84,15 +84,19 @@ class StudentBenefits extends React.Component {
 	render() {
 		return (
 			<section className="student-benefits">
-				<form onSubmit={this.handleSubmit}>
-					<label>Independent?</label>
-					<input
-						type="checkbox"
-						onChange={e => this.setState({x: e.target.x})} //todo
-						value={this.state.children}
-					/>
-					<input type="submit" value="Submit"/>
-				</form>
+
+				<article className="card">
+					<form onSubmit={this.handleSubmit}>
+						<label>Independent?</label>
+						<input
+							type="checkbox"
+							onChange={e => this.setState({x: e.target.x})} //todo
+							value={this.state.children}
+						/>
+						<input type="submit" value="Submit"/>
+					</form>
+				</article>
+
 			</section>
 		);
 	}
@@ -105,7 +109,7 @@ class StudentBenefits extends React.Component {
 4. change onChange={e => this.setState({x: e.target.value})}
 */
 
-/*         	render() {
+/*         	render() {
 		return (
 			<section className="student-benefits">
 				Basti
@@ -120,7 +124,6 @@ class StudentBenefits extends React.Component {
 					/>
 					<input type="submit" value="Submit"/>
 				</form>
-
 */
 
 /*

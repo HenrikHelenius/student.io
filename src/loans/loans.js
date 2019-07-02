@@ -24,8 +24,6 @@ class Loans extends React.Component {
 			loan_yearly_fixed_fee:33,
 		};
 
-
-
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -101,9 +99,8 @@ class Loans extends React.Component {
 							Amount of student loan
 							<input
 								type="number"
-								min="0"
-								max="100000"
 								min="1"
+								max="100000"
 								placeholder="Years"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
@@ -117,7 +114,6 @@ class Loans extends React.Component {
 								type="number"
 								min="0"
 								max="100"
-								step="0.1"
 								step="0.01"
 								placeholder="Years"
 								onChange={e => this.setState({interest_rate: e.target.value})}
