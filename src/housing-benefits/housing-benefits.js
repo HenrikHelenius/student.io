@@ -54,6 +54,7 @@ class HousingBenefits extends React.Component {
 		 * This check household
 		 */
 		const householdSize = () => {
+			console.log(+this.state.adults + +this.state.children)
 			return +this.state.adults + +this.state.children;
 		};
 
@@ -129,7 +130,7 @@ class HousingBenefits extends React.Component {
 							onChange={e => this.setState({ adults: e.target.value })}
 							value={this.state.adults}
 						/>
-						<label htmlFor="">Kommun</label>
+						<label htmlFor="">Municipality</label>
 						<input
 							type="number"
 							min="1"
