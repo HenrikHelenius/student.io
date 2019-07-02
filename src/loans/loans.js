@@ -144,13 +144,16 @@ class Loans extends React.Component {
 					</form>
 
 					<p>
-						Total loan: <b>{this.state.loan}</b>
+						Total loan from the bank: <b>{this.state.loan}</b>
 					</p>
 					<p>
-						Your total cost of loan: <b>{this.state.total_loan.toFixed(2)}</b>
+						Total lifetime cost of the loan with the current plan: <b>{this.state.total_loan.toFixed(2)}</b>
 					</p>
 					<p>
-						Hyvitys: <b>{this.state.refund}</b>
+						Cost of the loan: <b>{(this.state.total_loan-this.state.loan).toFixed(2)}</b>
+					</p>
+					<p>
+						Refund if applicable: <b>{this.state.refund}</b>
 					</p>
 				</article>
 

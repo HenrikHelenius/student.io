@@ -142,16 +142,22 @@ class HousingBenefits extends React.Component {
 							value={this.state.kommun}
 						>
 							<option value="1">
-								Option 1
+								Helsingfors
 							</option>
 							<option value="2">
-								Option 2
+								Esbo, Grankulla, Vanda
 							</option>
 							<option value="3">
-								Option 3
+								Björneborg, Borgå, Hyvinge, Joensuu, Jyväskylä, Kajana, Kervo, Kouvola, Kuopio,
+								Kyrkslätt, Lahtis, Lojo, Nokia, Nurmijärvi, Reso, Riihimäki
+							</option>
+							<option value="3">
+								Rovaniemi, Seinäjoki,
+								Sibbo, Sjundeå, S:t Michel, Tammerfors, Tavastehus, Träskända, Tusby, Uleåborg, Vasa,
+								Vichtis, Villmanstrand, Åbo
 							</option>
 							<option value="4">
-								Option 4
+								Other
 							</option>
 						</select>
 						<label htmlFor="">Income</label>
@@ -185,7 +191,7 @@ class HousingBenefits extends React.Component {
 							value={this.state.rent}
 						/>
 
-						<input type="submit" value="Submit" />
+						<input type="submit" value="Calculate" />
 					</form>
 
 					<p>
