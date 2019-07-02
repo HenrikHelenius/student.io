@@ -18,9 +18,10 @@ class Loans extends React.Component {
 			loan: 0,
 			total_loan:0,
 			interest_rate:0,
+			additional_interest_rate:58, //0,58%
+			total_interest_rate:0,
 			duration_of_studies:0,
 			duration_after_studies:0,
-			additional_interest_rate:58,
 			loan_yearly_fixed_fee:33,
 			amount_of_interest:0,
 			refund:0,
@@ -47,18 +48,20 @@ class Loans extends React.Component {
 		let loanResult = 0;
 		let interestsInEur = 0;
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
-		let totalInterestRate = (parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100))/10000;
+		let loanAdditionalCosts = parseInt(this.state.duration_of_studies) * parseInt(this.state.loan_yearly_fixed_fee);
+		let interestRate = parseInt(this.state.interest_rate * 100);
 		let loanWithInterest = parseInt(this.state.loan);
 
-		console.log('total interestrate', totalInterestRate);
+		console.log('total interestrate', interestRate);
 		console.log((loanWithInterest));
+
 		for (var i = 0; i < totalYears; i++) {
 
-			loanWithInterest += (loanWithInterest * totalInterestRate) + parseInt(this.state.loan_yearly_fixed_fee);
+			loanWithInterest += (loanWithInterest * (interestRate / 10000));
 			console.log(loanWithInterest);
 		}
 
-		return loanWithInterest;
+		return loanWithInterest+loanAdditionalCosts;
 	}
 	// Change name of this
 	/*calculateShit() {
@@ -149,7 +152,8 @@ class Loans extends React.Component {
 					<h3>
 						Total loan {this.state.loan}
 						<br />
-						Your total cost of loan  {this.state.total_loan}
+
+						Your total cost of loan {this.state.total_loan}
 						<br />
 						Hyvitys {this.state.refund}
 
