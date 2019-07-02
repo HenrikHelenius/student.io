@@ -1,14 +1,18 @@
 import React from 'react';
 import './housing-benefits.scss';
 
+import saveStateToStorage from '../localStorage.helper';
+
 class HousingBenefits extends React.Component {
+	// For local storage
+	componentName = 'HousingBenefits';
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			children: 0,
 		};
 
-		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -22,15 +26,15 @@ class HousingBenefits extends React.Component {
 
 	//// Events
 
-	handleChange(event) {
-		this.setState({value: event.target.value});
-	}
-
 	handleSubmit(event) {
 		const result = this.calculateShit();
 		alert('Result is: ' + result); // TODO: set to state or something
 		event.preventDefault();
+
+		// Save to local storage when something has been changed
+		saveStateToStorage(this.state, this.componentName)
 	}
+
 
 	render() {
 		return (
