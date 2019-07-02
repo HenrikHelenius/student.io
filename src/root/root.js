@@ -8,7 +8,7 @@ import Bank from "../bank/bank";
 
 function Root() {
 	return (
-		<main className="root">
+		<div className="root">
 			<header>
 				<h1>Student.io</h1>
 				<p>
@@ -16,11 +16,13 @@ function Root() {
 				</p>
 			</header>
 
-			<StudentBenefits></StudentBenefits>
-			<HousingBenefits></HousingBenefits>
-			<Loans></Loans>
-			<Bank></Bank>
-		</main>
+			<main className="grid">
+				<StudentBenefits></StudentBenefits>
+				<HousingBenefits></HousingBenefits>
+				<Loans></Loans>
+				<Bank></Bank>
+			</main>
+		</div>
 	);
 }
 
