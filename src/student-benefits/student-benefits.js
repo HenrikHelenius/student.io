@@ -2,15 +2,6 @@ import React from 'react';
 import './student-benefits.scss';
 import storage from "../helpers/localStorage.helper";
 
-const Checkbox = (props) => {
-	return (
-		<div>
-			<p> Independent?</p>
-			<input type="checkbox" name={props.name} />
-		</div>
-	)
-}
-
 
 class StudentBenefits extends React.Component {
 	constructor(props) {
@@ -24,33 +15,122 @@ class StudentBenefits extends React.Component {
 			isIndependent: false,
 			isMarried: false,
 			studyBegin: "0.0.0",
-			credits: 0,
+			credits: {
+				total: 0,
+				current: 0,
+			},
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	//// Own business logic
-
-	//Only for 300 Yleinen tutkimus (add support for others later)
-	//Alempi, Ylempi, Total.
-	supportMonths = [30, 21, 48];
-
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
 	}
 
+
+	//Only for 300 Yleinen tutkimus (add support for others later)
+	//Alempitut., Ylempitut., Yhteensä.
+	support = [30, 21, 48];
+
+	//Vuostituloraja lasketaan siten, että tuloja voi olla 667 euroa jokaista 
+	//tukikuukautta kohti ja 1 990 euroa jokaista tuetonta kuukautta kohti.
+	//Tukikuukaudet = index + 1 ja arvot ovat vuosituloraja euro/kalenterivuos
+	vuosituloraja = [22557, 21234, 19911, 18588, 17265, 15942, 14619, 13296, 11973, 10650, 9327, 8004];
+
+	noSupportThisYear() {
+		const { credits, ownIncome } = this.state;
+		return credits.current < 20 || ownIncome > this.vuosituloraja[0] ;
+	}
+
+	//calculates this years supportmonths
+	currentSupportMonths() {
+		const { credits, ownIncome } = this.state
+		const closestToOwnIncome = this.closest(this.vuostituloraja, ownIncome)
+		const amountOfSupportLeft = this.vuosituloraja.findIndex(i => i === closestToOwnIncome)
+		const creditsPerMonth = credits.current % 9 
+		return Math.min(creditsPerMonth, amountOfSupportLeft) ;
+	}
+
+//closest array value to num
+	closest(array,num){
+	var i=0;
+		var minDiff=1000;
+		var ans;
+		for(i in array){
+			var m=Math.abs(num-array[i]);
+			if(m<minDiff){ 
+					minDiff=m; 
+					ans=array[i]; 
+				}
+		}
+	return ans;
+	}
+	
+	//TODO
+	//Support months left based on credits done
+/*	overallSupportMonthsLeft() {
+		const { credits } = this.state
+		const totalCredits = credits.total
+		Math.floor((totalCredits % ))	
+}*/
+
 	//// Own business logic
 
 	//1.8.2019 alkaen
 	parentIncomeInfluence() {
-		const { parentIncome } = this.state;
-		if (parentIncome < 41400) {
-			return 100; //not real value
-		} else {
-			return 0
+		const { parentIncome, age, isIndependent } = this.state;
+		if (this.noSupportThisYear()) {
+			return 0;
+		}
+		else if (parentIncome < 41400 && isIndependent) {
+			if(age < 17) {
+				return 100; //not real value
+			}
+			else if(age === 17) {
+				return 100; //not real value
+			}
+			else if(age > 17) {
+				return 36.8; //oppimateriaalilisä
+			}
+		}
+		else if (parentIncome < 41400 && !isIndependent) {
+			if(age < 17) {
+				return 100; //not real value
+			}
+			else if(age === 17) {
+				return 100; //not real value
+			}
+			else if(age > 17) {
+				return 36.8; //not real value
+			}
+		}
+		else if (parentIncome < 44070 && !isIndependent) {
+			if(age < 17) {
+				return 80; //not real value
+			}
+			else if(age === 17) {
+				return 60; //not real value
+			}
+			else if(age > 17) {
+				return 25; //not real value
+			}
+		}
+		else if (parentIncome < 64400 && !isIndependent) {
+			if(age < 17) {
+				return 60; //not real value
+			}
+			else if(age === 17) {
+				return 40; //not real value
+			}
+			else if(age > 17) {
+				return 30; //not real value
+			}
+		}
+		else {
+			return 0; //the only real value
 		}
 	}
 
