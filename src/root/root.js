@@ -9,8 +9,11 @@ function Root() {
 	return (
 		<main className="root">
 			<p>Make new components, just add them here</p>
+			<br/><br/>
 			<StudentBenefits></StudentBenefits>
+			<br/><br/><br/><br/>
 			<HousingBenefits></HousingBenefits>
+			<br/><br/><br/><br/>
 			<Loans></Loans>
 		</main>
 	);
