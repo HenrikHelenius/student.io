@@ -22,9 +22,9 @@ class Loans extends React.Component {
 			duration_after_studies:0,
 			additional_interest_rate:58,
 			loan_yearly_fixed_fee:33,
+			amount_of_interest:0,
+			refund:0,
 		};
-
-
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -34,20 +34,31 @@ class Loans extends React.Component {
 		this.setState(storage.loadState(this.componentName));
 	}
 
+	calculateRefund(){
+		let total_loan = parseInt(this.state.total_loan);
+		let refund_percentage = 0.4;
+		let min_loan = 2500;
+
+		return (total_loan - min_loan) * refund_percentage;
+	}
+
 	//// Own business logic
 	yearlyLoanCalculation(){
 		let loanResult = 0;
+		let interestsInEur = 0;
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
+		let totalInterestRate = (parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100))/10000;
+		let loanWithInterest = parseInt(this.state.loan);
+
+		console.log('total interestrate', totalInterestRate);
+		console.log((loanWithInterest));
 		for (var i = 0; i < totalYears; i++) {
-			console.log(parseInt(this.state.additional_interest_rate));
-			let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
-			console.log('total interestrate', totalInterestRate);
-			let loanWithInterest = parseInt(this.state.loan) * (totalInterestRate / 100);
+
+			loanWithInterest += (loanWithInterest * totalInterestRate) + parseInt(this.state.loan_yearly_fixed_fee);
 			console.log(loanWithInterest);
-			loanResult += parseInt(this.state.loan) + loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
 		}
 
-		return +loanResult;
+		return loanWithInterest;
 	}
 	// Change name of this
 	/*calculateShit() {
@@ -61,10 +72,12 @@ class Loans extends React.Component {
 	handleSubmit(event) {
 
 		const result = this.yearlyLoanCalculation();
-		alert('Result is: ' + result); // TODO: set to state or something
+		this.setState({total_loan: result})
+		const refund = this.calculateRefund();
+		this.setState({refund: refund})
 		event.preventDefault();
 
-		// Save to local storage when something has been changed
+		// Save to local storage when  something has been changed
 		storage.saveState(this.componentName, this.state)
 	}
 
@@ -80,7 +93,7 @@ class Loans extends React.Component {
 						Modify your loan details
 					</h3>
 					<div>
-						<div className="label">
+						<label>
 							Amount of years studying (in years)
 							<input
 								type="number"
@@ -90,52 +103,58 @@ class Loans extends React.Component {
 								onChange={e => this.setState({duration_of_studies: e.target.value})}
 								value={this.state.duration_of_studies}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
+						<label>
 							Amount of student loan
 							<input
 								type="number"
-								min="0"
-								max="100000"
 								min="1"
+								max="100000"
 								placeholder="Years"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
+						<label>
 							Interest rate %
 							<input
 								type="number"
 								min="0"
 								max="100"
-								step="0.1"
 								step="0.01"
 								placeholder="Years"
 								onChange={e => this.setState({interest_rate: e.target.value})}
 								value={this.state.interest_rate}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
-							Time to pay back the loan (in years)
+						<label className="label">
+							Loan pay back time (years)
 							<input
 								type="number"
 								min="0"
-								max="10"
+								max="80"
 								placeholder="Years"
 								onChange={e => this.setState({duration_after_studies: e.target.value})}
 								value={this.state.duration_after_studies}
 							/>
-						</div>
+						</label>
 					</div>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Calculate" />
+					<h3>
+						Total loan {this.state.loan}
+						<br />
+						Your total cost of loan  {this.state.total_loan}
+						<br />
+						Hyvitys {this.state.refund}
 
+
+					</h3>
 				</form>
 
 			</section>

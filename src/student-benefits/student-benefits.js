@@ -1,7 +1,7 @@
 import React from 'react';
 import './student-benefits.scss';
-
 import storage from "../helpers/localStorage.helper";
+
 
 class StudentBenefits extends React.Component {
 	constructor(props) {
@@ -134,31 +134,37 @@ class StudentBenefits extends React.Component {
 		}
 	}
 
-	opintoTuki() {
-		const {children, age, isMarried, isIndependent} = this.state;
+	opintoTuki = () => {
+		const { children, age, isMarried, isIndependent } = this.state;
 		if (children) {
-			return 325.28;
-		} else if (isMarried) {
-			return 250.28;
-		} else if (age >= 17 && age < 20 && !isIndependent) {
-			return 38.66 + this.parentIncomeInfluence();
-		} else if (age >= 20 && !isIndependent) {
-			return 81.39 + this.parentIncomeInfluence();
-		} else if (age >= 18 && isIndependent) {
-			return 250.28;
-		} else if (age === 17 && isIndependent) {
-			return 101.74 + this.parentIncomeInfluence();
-		} else if (age < 17) {
+			return +325.28;
+		}
+		else if (isMarried) {
+			return +250.28;
+		}
+		else if (age >= 17 && age < 20 && !isIndependent) {
+			return +38.66 + this.parentIncomeInfluence();
+		}
+		else if (age >= 20 && !isIndependent) {
+			return +81.39 + this.parentIncomeInfluence();
+		}
+		else if (age >= 18 && isIndependent) {
+			return +250.28;
+		}
+		else if (age === 17 && isIndependent) {
+			return +101.74 + this.parentIncomeInfluence();
+		}
+		else if (age < 17) {
 			return this.parentIncomeInfluence();
 		} else {
 			return 0;
 		}
-	};
+	}
 
 	//// Events
 
 	handleChange(event) {
-		this.setState({children: event.target.value});
+		this.setState({ children: event.target.value });
 	}
 
 	handleSubmit(event) {
@@ -173,15 +179,19 @@ class StudentBenefits extends React.Component {
 	render() {
 		return (
 			<section className="student-benefits">
-				<form onSubmit={this.handleSubmit}>
-					<label>Independent?</label>
-					<input
-						type="checkbox"
-						onChange={e => this.setState({x: e.target.x})} //todo
-						value={this.state.children}
-					/>
-					<input type="submit" value="Submit"/>
-				</form>
+
+				<article className="card">
+					<form onSubmit={this.handleSubmit}>
+						<label>Independent?</label>
+						<input
+							type="checkbox"
+							onChange={e => this.setState({ x: e.target.x })} //todo
+							value={this.state.children}
+						/>
+						<input type="submit" value="Submit" />
+					</form>
+				</article>
+
 			</section>
 		);
 	}
@@ -194,7 +204,7 @@ class StudentBenefits extends React.Component {
 4. change onChange={e => this.setState({x: e.target.value})}
 */
 
-/*         	render() {
+/*         	render() {
 		return (
 			<section className="student-benefits">
 				Basti
@@ -209,7 +219,6 @@ class StudentBenefits extends React.Component {
 					/>
 					<input type="submit" value="Submit"/>
 				</form>
-
 */
 
 /*
