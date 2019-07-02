@@ -36,45 +36,43 @@ class HousingBenefits extends React.Component {
 			[951, 903, 734, 651],
 			[1111, 1054, 869, 775],
 			[139, 132, 119, 114]
-		]
-
+		];
 
 		const baseExcess = () => {
 
 			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 22 * this.state.children));
-		}
+		};
 
 		/**
 		 * This check household
 		 */
 		const householdSize = () => {
-
 			return this.state.adults + this.state.children
-		}
+		};
 
 		const okeyed = () => {
 
-			const max = 1 - householdSize()
-			const kommungrupp = 1 - this.state.kommun
+			const max = 1 - householdSize();
+			const kommungrupp = 1 - this.state.kommun;
 
-			if (this.state.rent < arr[max][kommungrupp]) return this.state.rent
+			if (this.state.rent < arr[max][kommungrupp]) return this.state.rent;
 			else {
 				if (householdSize > 4) {
-					const allowance = arr[max][kommungrupp] + 5 * arr[5][kommungrupp]
+					const allowance = arr[max][kommungrupp] + 5 * arr[5][kommungrupp];
 					return allowance
 				} else {
 					return arr[max][kommungrupp]
 				}
 			}
 
-		}
+		};
 
 		const benefit = () => {
-			alert('Fuck me benefit')
-			const okey = okeyed()
-			const base = baseExcess()
+			alert('Fuck me benefit');
+			const okey = okeyed();
+			const base = baseExcess();
 			return okey - base
-		}
+		};
 
 		return benefit();
 	}
@@ -94,17 +92,17 @@ class HousingBenefits extends React.Component {
 		return (
 			<section className="housing-benefits">
 				Kasper
-Children
+				Children
 				<form onSubmit={this.handleSubmit}>
 					<input
 						type="number"
 						min="0"
 						max="10"
 						placeholder="Children"
-						onChange={e => this.setState({ children: e.target.value })}
+						onChange={e => this.setState({children: e.target.value})}
 						value={this.state.children}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 				Adults
 				<form onSubmit={this.handleSubmit}>
@@ -113,10 +111,10 @@ Children
 						min="0"
 						max="10"
 						placeholder="Adults"
-						onChange={e => this.setState({ adults: e.target.value })}
+						onChange={e => this.setState({adults: e.target.value})}
 						value={this.state.adults}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 				Kommun
 				<form onSubmit={this.handleSubmit}>
@@ -125,10 +123,10 @@ Children
 						min="1"
 						max="4"
 						placeholder="Kommun"
-						onChange={e => this.setState({ kommun: e.target.value })}
+						onChange={e => this.setState({kommun: e.target.value})}
 						value={this.state.kommun}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 				Income
 				<form onSubmit={this.handleSubmit}>
@@ -136,10 +134,10 @@ Children
 						type="number"
 
 						placeholder="Income"
-						onChange={e => this.setState({ income: e.target.value })}
+						onChange={e => this.setState({income: e.target.value})}
 						value={this.state.income}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 				Rent
 				<form onSubmit={this.handleSubmit}>
@@ -147,10 +145,10 @@ Children
 						type="number"
 
 						placeholder="Income"
-						onChange={e => this.setState({ rent: e.target.value })}
+						onChange={e => this.setState({rent: e.target.value})}
 						value={this.state.rent}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 
 			</section>
