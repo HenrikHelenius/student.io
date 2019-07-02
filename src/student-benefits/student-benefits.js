@@ -1,7 +1,16 @@
 import React from 'react';
 import './student-benefits.scss';
-
 import storage from "../helpers/localStorage.helper";
+
+const Checkbox = (props) => {
+	return (
+		<div>
+			<p> Independent?</p>
+			<input type="checkbox" name={props.name} />
+		</div>
+	)
+}
+
 
 class StudentBenefits extends React.Component {
 	constructor(props) {
@@ -37,7 +46,7 @@ class StudentBenefits extends React.Component {
 
 	//1.8.2019 alkaen
 	parentIncomeInfluence() {
-		const {parentIncome} = this.state;
+		const { parentIncome } = this.state;
 		if (parentIncome < 41400) {
 			return 100; //not real value
 		} else {
@@ -45,31 +54,37 @@ class StudentBenefits extends React.Component {
 		}
 	}
 
-	opintoTuki() {
-		const {children, age, isMarried, isIndependent} = this.state;
+	opintoTuki = () => {
+		const { children, age, isMarried, isIndependent } = this.state;
 		if (children) {
-			return 325.28;
-		} else if (isMarried) {
-			return 250.28;
-		} else if (age >= 17 && age < 20 && !isIndependent) {
-			return 38.66 + this.parentIncomeInfluence();
-		} else if (age >= 20 && !isIndependent) {
-			return 81.39 + this.parentIncomeInfluence();
-		} else if (age >= 18 && isIndependent) {
-			return 250.28;
-		} else if (age === 17 && isIndependent) {
-			return 101.74 + this.parentIncomeInfluence();
-		} else if (age < 17) {
+			return +325.28;
+		}
+		else if (isMarried) {
+			return +250.28;
+		}
+		else if (age >= 17 && age < 20 && !isIndependent) {
+			return +38.66 + this.parentIncomeInfluence();
+		}
+		else if (age >= 20 && !isIndependent) {
+			return +81.39 + this.parentIncomeInfluence();
+		}
+		else if (age >= 18 && isIndependent) {
+			return +250.28;
+		}
+		else if (age === 17 && isIndependent) {
+			return +101.74 + this.parentIncomeInfluence();
+		}
+		else if (age < 17) {
 			return this.parentIncomeInfluence();
 		} else {
 			return 0;
 		}
-	};
+	}
 
 	//// Events
 
 	handleChange(event) {
-		this.setState({children: event.target.value});
+		this.setState({ children: event.target.value });
 	}
 
 	handleSubmit(event) {
@@ -90,10 +105,10 @@ class StudentBenefits extends React.Component {
 						<label>Independent?</label>
 						<input
 							type="checkbox"
-							onChange={e => this.setState({x: e.target.x})} //todo
+							onChange={e => this.setState({ x: e.target.x })} //todo
 							value={this.state.children}
 						/>
-						<input type="submit" value="Submit"/>
+						<input type="submit" value="Submit" />
 					</form>
 				</article>
 
