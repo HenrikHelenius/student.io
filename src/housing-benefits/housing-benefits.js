@@ -14,7 +14,6 @@ class HousingBenefits extends React.Component {
 			adults: 0,
 			kommun: 1,
 			income: 0,
-
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,12 +38,22 @@ class HousingBenefits extends React.Component {
 			return this.state.income - 300
 		}
 
+
 		const baseExcess = () => {
 			return 0.42 * (salary - (597 + 99 * this.state.adults + 22 * this.state.children));
 		}
 
-		const okeyed = (householdSize, kommungrupp, rent) => {
-			const max = 1 - householdSize
+		/**
+		 * This check household
+		 */
+		const householdSize = () => {
+			console.log(this.state.adults + this.state.children)
+			return this.state.adults + this.state.children
+		}
+		console.log(householdSize)
+
+		const okeyed = (kommungrupp, rent) => {
+			const max = 1 - householdSize()
 			const kommun = 1 - kommungrupp
 
 			if (rent < arr[max][kommun]) return rent
@@ -60,10 +69,10 @@ class HousingBenefits extends React.Component {
 		}
 
 		const benefit = () => {
-			return okeyed - baseExcess
+			return okeyed() - baseExcess()
 		}
 
-		return +benefit;
+		return +benefit();
 	}
 
 	//// Events
