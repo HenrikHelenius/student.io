@@ -14,6 +14,7 @@ class HousingBenefits extends React.Component {
 			adults: 0,
 			kommun: 1,
 			income: 0,
+			rent: 0,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,27 +38,26 @@ class HousingBenefits extends React.Component {
 			[139, 132, 119, 114]
 		]
 
-		const salary = () => {
-			return this.state.income - 300
-		}
-
 
 		const baseExcess = () => {
-			return 0.42 * (salary() - (597 + 99 * this.state.adults + 22 * this.state.children));
+			alert('Fuck me base')
+			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 22 * this.state.children));
 		}
 
 		/**
 		 * This check household
 		 */
 		const householdSize = () => {
+			alert('Fuck me')
 			return this.state.adults + this.state.children
 		}
 
-		const okeyed = (kommungrupp, rent) => {
+		const okeyed = (kommungrupp) => {
+			alert('Fuck me here')
 			const max = 1 - householdSize()
 			const kommun = 1 - kommungrupp
 
-			if (rent < arr[max][kommun]) return rent
+			if (this.state.rent < arr[max][kommun]) return this.state.rent
 			else {
 				if (householdSize > 4) {
 					const allowance = arr[max][kommun] + 5 * arr[5][kommun]
@@ -70,7 +70,9 @@ class HousingBenefits extends React.Component {
 		}
 
 		const benefit = () => {
-			return okeyed() - baseExcess()
+			alert('Fuck me benefit')
+			const check = okeyed() - baseExcess()
+			return check
 		}
 
 		return +benefit();
@@ -101,7 +103,7 @@ Childre
 						onChange={e => this.setState({ children: e.target.value })}
 						value={this.state.children}
 					/>
-					<input type="submit" value="Submit"/>
+					<input type="submit" value="Submit" />
 				</form>
 				Adults
 				<form onSubmit={this.handleSubmit}>
@@ -135,6 +137,17 @@ Childre
 						placeholder="Income"
 						onChange={e => this.setState({ income: e.target.value })}
 						value={this.state.income}
+					/>
+					<input type="submit" value="Submit" />
+				</form>
+				Rent
+				<form onSubmit={this.handleSubmit}>
+					<input
+						type="number"
+
+						placeholder="Income"
+						onChange={e => this.setState({ rent: e.target.value })}
+						value={this.state.rent}
 					/>
 					<input type="submit" value="Submit" />
 				</form>
