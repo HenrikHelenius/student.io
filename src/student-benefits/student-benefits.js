@@ -226,8 +226,8 @@ class StudentBenefits extends React.Component {
 						<input
               name="married"
 							type="checkbox"
-							onChange={e => this.setstate({ ismarried: e.target.value })} //todo
-							value={this.state.ismarried}
+							onChange={e => this.setstate({ isMarried: e.target.value })} //todo
+							value={this.state.isMarried}
 						/>
 						<label htmlFor="independent">Do you live with your parents?</label>
 						<input
