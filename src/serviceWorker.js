@@ -121,7 +121,7 @@ function checkValidServiceWorker(swUrl, config) {
 		})
 		.catch(() => {
 			console.log(
-				'No internet connection found. Loans is running in offline mode.'
+				'No internet connection found. LoansVisualiser is running in offline mode.'
 			);
 		});
 }
