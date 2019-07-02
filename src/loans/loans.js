@@ -1,8 +1,6 @@
 import React from 'react';
 import './loans.scss';
 
-import LoansVisualiser from "../loans-visualiser/loans-visualiser";
-
 import storage from "../helpers/localStorage.helper";
 
 class Loans extends React.Component {
@@ -15,7 +13,6 @@ class Loans extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editHidden: false,
 			loan: 0,
 			total_loan:0,
 			interest_rate:0,
@@ -89,10 +86,7 @@ class Loans extends React.Component {
 		return (
 			<section className="loans">
 
-				<LoansVisualiser state={this.state}>
-				</LoansVisualiser>
-
-				<article className={this.state.editHidden ? 'hidden card' : 'card'}>
+				<article className="card">
 					<form onSubmit={this.handleSubmit}>
 						<h3>Modify your loan</h3>
 
@@ -117,7 +111,7 @@ class Loans extends React.Component {
 								type="number"
 								min="1"
 								max="100000"
-								placeholder="Years"
+								placeholder="€"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
 							/>
@@ -128,8 +122,8 @@ class Loans extends React.Component {
 								type="number"
 								min="0"
 								max="100"
-								step="0.01"
-								placeholder="Years"
+								step="0.1"
+								placeholder="%"
 								onChange={e => this.setState({interest_rate: e.target.value})}
 								value={this.state.interest_rate}
 							/>
@@ -148,6 +142,16 @@ class Loans extends React.Component {
 
 						<input type="submit" value="Calculate"/>
 					</form>
+
+					<p>
+						Total loan: <b>{this.state.loan}</b>
+					</p>
+					<p>
+						Your total cost of loan: <b>{this.state.total_loan.toFixed(2)}</b>
+					</p>
+					<p>
+						Hyvitys: <b>{this.state.refund}</b>
+					</p>
 				</article>
 
 			</section>

@@ -135,15 +135,24 @@ class HousingBenefits extends React.Component {
 							onChange={e => this.setState({ adults: e.target.value })}
 							value={this.state.adults}
 						/>
-						<label htmlFor="">Kommun</label>
-						<input
-							type="number"
-							min="1"
-							max="4"
-							placeholder="Kommun"
+						<label htmlFor="">City or area</label>
+						<select
 							onChange={e => this.setState({ kommun: e.target.value })}
 							value={this.state.kommun}
-						/>
+						>
+							<option value="1">
+								Option 1
+							</option>
+							<option value="2">
+								Option 2
+							</option>
+							<option value="3">
+								Option 3
+							</option>
+							<option value="4">
+								Option 4
+							</option>
+						</select>
 						<label htmlFor="">Income</label>
 						<input
 							type="number"
