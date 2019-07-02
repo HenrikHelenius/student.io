@@ -18,7 +18,7 @@ class Loans extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
 	}
