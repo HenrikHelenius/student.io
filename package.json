@@ -1,7 +1,12 @@
 {
-  "name": "studentio",
-  "version": "0.1.0",
+  "name": "student.io",
+  "version": "1.0.0",
+  "description": "Future of personal finance for students in Finland",
   "private": true,
+  "keywords": [
+    "Cash",
+    "Champagne showers"
+  ],
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
