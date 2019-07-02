@@ -1,40 +1,41 @@
 import React from 'react';
 import './student-benefits.scss';
-
-const Checkbox = (props) => {
-	return(
-	<div>
-	<p> Independent?</p>
-	<input type="checkbox" name={props.name} />
-	</div>
-	)
-}
 import storage from "../helpers/localStorage.helper";
 
+const Checkbox = (props) => {
+	return (
+		<div>
+			<p> Independent?</p>
+			<input type="checkbox" name={props.name} />
+		</div>
+	)
+}
+
+
 class StudentBenefits extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            children: false,
-            isUniversity: false,
-            age: 0,
-            parentIncome: 0,
-            ownIncome: 0,
-            isIndependent: false,
-            isMarried: false,
-            studyBegin: "0.0.0",
-            credits: 0,
-        };
+	constructor(props) {
+		super(props);
+		this.state = {
+			children: false,
+			isUniversity: false,
+			age: 0,
+			parentIncome: 0,
+			ownIncome: 0,
+			isIndependent: false,
+			isMarried: false,
+			studyBegin: "0.0.0",
+			credits: 0,
+		};
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
-    //// Own business logic
+	//// Own business logic
 
-    //Only for 300 Yleinen tutkimus (add support for others later)
-    //Alempi, Ylempi, Total.
-    supportMonths = [30, 21, 48];
+	//Only for 300 Yleinen tutkimus (add support for others later)
+	//Alempi, Ylempi, Total.
+	supportMonths = [30, 21, 48];
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -45,7 +46,7 @@ class StudentBenefits extends React.Component {
 	//1.8.2019 alkaen
 	parentIncomeInfluence() {
 		const { parentIncome } = this.state;
-		if(parentIncome < 41400) {
+		if (parentIncome < 41400) {
 			return 100; //not real value
 		}
 		else {
@@ -53,39 +54,39 @@ class StudentBenefits extends React.Component {
 		}
 	}
 
-    opintoTuki = () => {
-        const { children, age, isMarried, isIndependent } = this.state;
-		if(children) {
+	opintoTuki = () => {
+		const { children, age, isMarried, isIndependent } = this.state;
+		if (children) {
 			return +325.28;
 		}
-		else if(isMarried) {
+		else if (isMarried) {
 			return +250.28;
 		}
-		else if( age >= 17 && age < 20 && !isIndependent) {
+		else if (age >= 17 && age < 20 && !isIndependent) {
 			return +38.66 + this.parentIncomeInfluence();
 		}
-		else if(age >= 20 && !isIndependent) {
+		else if (age >= 20 && !isIndependent) {
 			return +81.39 + this.parentIncomeInfluence();
 		}
-		else if(age >= 18 && isIndependent) {
+		else if (age >= 18 && isIndependent) {
 			return +250.28;
 		}
-		else if(age === 17 && isIndependent) {
+		else if (age === 17 && isIndependent) {
 			return +101.74 + this.parentIncomeInfluence();
 		}
-		else if(age < 17) {
+		else if (age < 17) {
 			return this.parentIncomeInfluence();
 		}
 		else {
 			return 0;
 		}
-    }
+	}
 
-    //// Events
+	//// Events
 
-    handleChange(event) {
-        this.setState({children: event.target.value});
-    }
+	handleChange(event) {
+		this.setState({ children: event.target.value });
+	}
 
 	handleSubmit(event) {
 		const result = this.calculateShit();
@@ -96,13 +97,13 @@ class StudentBenefits extends React.Component {
 		storage.saveState(this.componentName, this.state)
 	}
 
-    render() {
-        return (
-	 <section className="student-benefits">
-		<Checkbox name="independent" />
-     </section>
-        );
-    }
+	render() {
+		return (
+			<section className="student-benefits">
+				<Checkbox name="independent" />
+			</section>
+		);
+	}
 }
 
 /* Handling inputs

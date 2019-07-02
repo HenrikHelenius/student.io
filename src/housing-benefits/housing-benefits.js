@@ -1,6 +1,5 @@
 import React from 'react';
 import './housing-benefits.scss';
-
 import storage from '../helpers/localStorage.helper';
 
 class HousingBenefits extends React.Component {
@@ -51,18 +50,19 @@ class HousingBenefits extends React.Component {
 		}
 
 		const okeyed = () => {
-
 			const max = householdSize() - 1
 			const kommungrupp = this.state.kommun - 1
-			if (householdSize() <= 4 && this.state.rent < arr[max][kommungrupp]) return this.state.rent;
-			else {
-				if (householdSize() > 4) {
-					const allowance = arr[3][kommungrupp] + (householdSize() - 4) * arr[4][kommungrupp];
-					return allowance
-				} else {
-					return arr[max][kommungrupp]
-				}
+			let allowance = 0
+
+			if (householdSize() <= 4) {
+				allowance = arr[max][kommungrupp]
+			} else {
+				allowance = arr[3][kommungrupp] + (householdSize() - 4) * arr[4][kommungrupp];
 			}
+
+			if (this.state.rent < allowance) return this.state.rent;
+			else return allowance
+
 
 		};
 
