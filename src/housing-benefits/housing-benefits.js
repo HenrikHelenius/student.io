@@ -15,10 +15,14 @@ class HousingBenefits extends React.Component {
 			income: 0,
 			rent: 0,
 			unemployed: 0,
+			housing: 0,
+			total: 0,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
+
+
 
 	componentDidMount() {
 		// Load state
@@ -38,8 +42,12 @@ class HousingBenefits extends React.Component {
 			[139, 132, 119, 114]
 		];
 
+		const totalIncome = () => {
+			return +this.state.income + +this.state.unemployed
+		}
+
 		const baseExcess = () => {
-			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 221 * this.state.children));
+			return 0.42 * ((totalIncome() - 300) - (597 + 99 * this.state.adults + 221 * this.state.children));
 		};
 
 		/**
@@ -67,22 +75,31 @@ class HousingBenefits extends React.Component {
 		};
 
 		const benefit = () => {
-			alert('Fuck me benefit');
-			const okey = okeyed();
-			const base = baseExcess();
-			return (okey - base) * 0.80
+			return (okeyed() - baseExcess()) * 0.80
 		};
-		console.log('This is size: ' + householdSize());
+
+
 		return benefit();
 
 	}
+
+	calculateTotalIncome() {
+		return +this.state.income + +this.state.unemployed + +this.state.housing
+	}
+
+
 
 	//// Events
 
 	handleSubmit(event) {
 		const result = this.calculateShit();
-		alert('Result is: ' + result); // TODO: set to state or something
+
+		this.setState({ housing: result })
+		const calculateTotal = this.calculateTotalIncome
+		this.setState({ total: calculateTotal })
+
 		event.preventDefault();
+
 
 		// Save to local storage when something has been changed
 		storage.saveState(this.componentName, this.state)
@@ -141,7 +158,7 @@ class HousingBenefits extends React.Component {
 						<input
 							type="number"
 							placeholder="Unemployment benefit"
-							onChange={e => this.setState({ rent: e.target.value })}
+							onChange={e => this.setState({ unemployed: e.target.value })}
 							value={this.state.unemployed}
 						/>
 						<label htmlFor="">Rent</label>
@@ -154,6 +171,15 @@ class HousingBenefits extends React.Component {
 
 						<input type="submit" value="Submit" />
 					</form>
+					<h3>
+						Total income {this.state.total}
+						<br />
+						Your total housing benefit is  {this.state.housing}
+						<br />
+
+
+					</h3>
+
 				</article>
 
 			</section>
