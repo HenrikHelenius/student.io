@@ -1,7 +1,7 @@
 import React from 'react';
 import './housing-benefits.scss';
 
-import saveStateToStorage from '../localStorage.helper';
+import storage from '../helpers/localStorage.helper';
 
 class HousingBenefits extends React.Component {
 	// For local storage
@@ -14,6 +14,11 @@ class HousingBenefits extends React.Component {
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	componentDidMount(){
+		// Load state
+		this.setState(storage.loadState(this.componentName));
 	}
 
 	//// Own business logic
@@ -32,7 +37,7 @@ class HousingBenefits extends React.Component {
 		event.preventDefault();
 
 		// Save to local storage when something has been changed
-		saveStateToStorage(this.state, this.componentName)
+		storage.saveState(this.componentName, this.state)
 	}
 
 
