@@ -4,6 +4,7 @@ import './root.scss';
 import StudentBenefits from "../student-benefits/student-benefits";
 import Loans from "../loans/loans";
 import HousingBenefits from "../housing-benefits/housing-benefits";
+import Bank from "../bank/bank";
 
 function Root() {
 	return (
@@ -15,6 +16,8 @@ function Root() {
 			<HousingBenefits></HousingBenefits>
 			<br/><br/><br/><br/>
 			<Loans></Loans>
+			<br/><br/><br/><br/>
+			<Bank></Bank>
 		</main>
 	);
 }
