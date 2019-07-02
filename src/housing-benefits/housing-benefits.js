@@ -19,7 +19,6 @@ class HousingBenefits extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	// Om bassjälvrisken är mindre 10€ beaktas den inte
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -88,7 +87,6 @@ class HousingBenefits extends React.Component {
 		storage.saveState(this.componentName, this.state)
 	}
 
-
 	render() {
 		return (
 			<section className="housing-benefits">
@@ -103,7 +101,7 @@ Childre
 						onChange={e => this.setState({ children: e.target.value })}
 						value={this.state.children}
 					/>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Submit"/>
 				</form>
 				Adults
 				<form onSubmit={this.handleSubmit}>
