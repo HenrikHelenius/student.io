@@ -185,7 +185,7 @@ class HousingBenefits extends React.Component {
 							value={this.state.rent}
 						/>
 
-						<input type="submit" value="Submit" />
+						<input type="submit" value="Calculate" />
 					</form>
 
 					<p>
