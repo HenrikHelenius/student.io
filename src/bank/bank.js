@@ -10,7 +10,7 @@ class Bank extends React.Component {
 			startBalance: 0,
 			yearsToGrow: 0,
 			monthlyContribution: 0,
-			result: 0
+			result1: 0
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +18,7 @@ class Bank extends React.Component {
 
 	handleSubmit(event) {
 		const result = this.compoundInterest()
-		this.setState({ result: result })
+		this.setState({ result1: result })
 		event.preventDefault();
 		// Save to local storage when something has been changed
 
@@ -28,12 +28,16 @@ class Bank extends React.Component {
 	}
 
 	compoundInterest() {
-		const monthlyRate = this.state.interest / 12;
-		const monthsToGrow = this.state.yearsToGrow * 12;
+		const monthlyRate = +this.state.interest / 1200;
+		const monthsToGrow = +this.state.yearsToGrow * 12;
+		console.log(monthsToGrow)
+		let start = +this.state.startBalance;
+		console.log(this.state.startBalance)
 		for (var i = 0; i < monthsToGrow; i++) {
-			this.setState({ startBalance: this.state.startBalance * (1 + monthlyRate) + this.state.monthlyContribution })
+			start = start * (1 + monthlyRate) + +this.state.monthlyContribution
+			console.log(start)
 		}
-		return Math.round(this.state.startBalance * 100) / 100;
+		return Math.round(start * 100) / 100;
 	}
 
 	//// Own business logic
@@ -65,8 +69,7 @@ class Bank extends React.Component {
 						<label htmlFor="">Interest Rate</label>
 						<input
 							type="number"
-							min="0"
-							max="10"
+
 							placeholder="Interest rate"
 							onChange={e => this.setState({ interest: e.target.value })}
 							value={this.state.interest}

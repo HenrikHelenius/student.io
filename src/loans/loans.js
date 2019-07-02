@@ -42,9 +42,7 @@ class Loans extends React.Component {
 	}
 
 	//// Own business logic
-	yearlyLoanCalculation(){
-		let loanResult = 0;
-		let interestsInEur = 0;
+	yearlyLoanCalculation() {
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
 		let loanAdditionalCosts = parseInt(this.state.duration_of_studies) * parseInt(this.state.loan_yearly_fixed_fee);
 		let interestRate = parseInt(this.state.interest_rate * 100);
@@ -143,17 +141,18 @@ class Loans extends React.Component {
 						<input type="submit" value="Calculate"/>
 					</form>
 
+
 					<p>
-						Total loan from the bank: <b>{this.state.loan}</b>
+						Total loan from the bank: <b>{this.state.loan}€</b>
 					</p>
 					<p>
-						Total lifetime cost of the loan with the current plan: <b>{this.state.total_loan.toFixed(2)}</b>
+						Total lifetime cost of the loan with the current plan: <b>{this.state.total_loan.toFixed(2)}€</b>
 					</p>
 					<p>
-						Cost of the loan: <b>{(this.state.total_loan-this.state.loan).toFixed(2)}</b>
+						Cost of the loan: <b>{(this.state.total_loan-this.state.loan).toFixed(2)}€</b>
 					</p>
 					<p>
-						Refund if applicable: <b>{this.state.refund}</b>
+						Refund if applicable: <b>{this.state.refund}€</b>
 					</p>
 				</article>
 
