@@ -4,15 +4,21 @@ import storage from "../helpers/localStorage.helper";
 
 
 class Loans extends React.Component {
+	/* additional_interest_rate selitys: perustamismaksu on 30 euroa ja lainan automaattisen kuukausiveloituksen kulu on 2,30 euroa.*/
+ /* loan yearly fixed fee (kaikki käsittelymaksut jne keskiarvo vuodessa) */
 	constructor(props) {
 		super(props);
 		this.state = {
 			loan: 0,
-			total_loan: 0,
+			total_loan:0,
 			interest_rate:0,
 			duration_of_studies:0,
 			duration_after_studies:0,
+			additional_interest_rate:58,
+			loan_yearly_fixed_fee:33,
 		};
+
+
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,12 +30,26 @@ class Loans extends React.Component {
 	}
 
 	//// Own business logic
+	yearlyLoanCalculation(){
+		let loanResult = 0;
+		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
+		for (var i = 0; i < totalYears; i++) {
+			console.log(parseInt(this.state.additional_interest_rate));
+			let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
+			console.log('total interestrate', totalInterestRate);
+			let loanWithInterest = parseInt(this.state.loan) * (totalInterestRate / 100);
+			console.log(loanWithInterest);
+			loanResult += parseInt(this.state.loan) + loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
+		}
 
-	// Change name of this
-	calculateShit() {
-		// this state is a string, remember that
-		return +this.state.children + 1;
+		return +loanResult;
 	}
+	// Change name of this
+	/*calculateShit() {
+		// this state is a string, remember that
+
+		return +this.state.children + 1;
+	}*/
 
 	//// Events
 
@@ -38,7 +58,8 @@ class Loans extends React.Component {
 	}
 
 	handleSubmit(event) {
-		const result = this.calculateShit();
+
+		const result = this.yearlyLoanCalculation();
 		alert('Result is: ' + result); // TODO: set to state or something
 		event.preventDefault();
 
@@ -58,9 +79,8 @@ class Loans extends React.Component {
 							Amount of years studying (in years)
 							<input
 								type="number"
-								min="1"
+								min="0"
 								max="10"
-								placeholder="test"
 								onChange={e => this.setState({duration_of_studies: e.target.value})}
 								value={this.state.duration_of_studies}
 							/>
@@ -71,9 +91,8 @@ class Loans extends React.Component {
 							Amount of student loan
 							<input
 								type="number"
-								min="1"
-								max="10"
-								placeholder="test"
+								min="0"
+								max="100000"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
 							/>
@@ -81,15 +100,14 @@ class Loans extends React.Component {
 					</div>
 					<div>
 						<div className="label">
-							Interest rate
+							Interest rate %
 							<input
 								type="number"
 								min="0"
 								max="100"
-								step="0.01"
-								placeholder="test"
-								onChange={e => this.setState({children: e.target.value})}
-								value={this.state.children}
+								step="0.1"
+								onChange={e => this.setState({interest_rate: e.target.value})}
+								value={this.state.interest_rate}
 							/>
 						</div>
 					</div>
@@ -98,9 +116,9 @@ class Loans extends React.Component {
 							Time to pay back the loan (in years)
 							<input
 								type="number"
-								min="1"
+								min="0"
 								max="10"
-								placeholder="test"
+
 								onChange={e => this.setState({duration_after_studies: e.target.value})}
 								value={this.state.duration_after_studies}
 							/>
