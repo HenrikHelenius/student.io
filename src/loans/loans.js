@@ -22,6 +22,8 @@ class Loans extends React.Component {
 			duration_after_studies:0,
 			additional_interest_rate:58,
 			loan_yearly_fixed_fee:33,
+			amount_of_interest:0,
+			refund:0,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,25 +34,31 @@ class Loans extends React.Component {
 		this.setState(storage.loadState(this.componentName));
 	}
 
+	calculateRefund(){
+		let total_loan = parseInt(this.state.total_loan);
+		let refund_percentage = 0.4;
+		let min_loan = 2500;
+
+		return (total_loan - min_loan) * refund_percentage;
+	}
+
 	//// Own business logic
 	yearlyLoanCalculation(){
 		let loanResult = 0;
 		let interestsInEur = 0;
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
-		let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
+		let totalInterestRate = (parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100))/10000;
 		let loanWithInterest = parseInt(this.state.loan);
-		console.log('total interestrate', totalInterestRate);
-		console.log((totalInterestRate / 10000));
-		for (var i = 0; i < totalYears; i++) {
-			console.log(parseInt(this.state.additional_interest_rate));
 
-			loanWithInterest += loanWithInterest - (loanWithInterest * (totalInterestRate / 10000));
+		console.log('total interestrate', totalInterestRate);
+		console.log((loanWithInterest));
+		for (var i = 0; i < totalYears; i++) {
+
+			loanWithInterest += (loanWithInterest * totalInterestRate) + parseInt(this.state.loan_yearly_fixed_fee);
 			console.log(loanWithInterest);
-			interestsInEur += loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
-			console.log('interestsInEur',interestsInEur);
 		}
-  	loanResult = loanWithInterest;
-		return +loanResult;
+
+		return loanWithInterest;
 	}
 	// Change name of this
 	/*calculateShit() {
@@ -66,6 +74,8 @@ class Loans extends React.Component {
 		const result = this.yearlyLoanCalculation();
 		alert('Result is: ' + result); // TODO: set to state or something
 		this.setState({total_loan: result})
+		const refund = this.calculateRefund();
+		this.setState({refund: refund})
 		event.preventDefault();
 
 		// Save to local storage when  something has been changed
@@ -125,19 +135,27 @@ class Loans extends React.Component {
 					</div>
 					<div>
 						<label className="label">
-							Time to pay back the loan (in years)
+							Loan pay back time (years)
 							<input
 								type="number"
 								min="0"
-								max="10"
+								max="80"
 								placeholder="Years"
 								onChange={e => this.setState({duration_after_studies: e.target.value})}
 								value={this.state.duration_after_studies}
 							/>
 						</label>
 					</div>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Calculate" />
+					<h3>
+						Total loan {this.state.loan}
+						<br />
+						Your total cost of loan  {this.state.total_loan} 
+						<br />
+						Hyvitys {this.state.refund}
 
+
+					</h3>
 				</form>
 
 			</section>
