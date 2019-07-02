@@ -72,7 +72,6 @@ class Loans extends React.Component {
 	handleSubmit(event) {
 
 		const result = this.yearlyLoanCalculation();
-		alert('Result is: ' + result); // TODO: set to state or something
 		this.setState({total_loan: result})
 		const refund = this.calculateRefund();
 		this.setState({refund: refund})
@@ -150,7 +149,7 @@ class Loans extends React.Component {
 					<h3>
 						Total loan {this.state.loan}
 						<br />
-						Your total cost of loan  {this.state.total_loan} 
+						Your total cost of loan  {this.state.total_loan}
 						<br />
 						Hyvitys {this.state.refund}
 
