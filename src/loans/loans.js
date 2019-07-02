@@ -37,17 +37,19 @@ class Loans extends React.Component {
 		let loanResult = 0;
 		let interestsInEur = 0;
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
+		let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
+		let loanWithInterest = parseInt(this.state.loan);
+		console.log('total interestrate', totalInterestRate);
+		console.log((totalInterestRate / 10000));
 		for (var i = 0; i < totalYears; i++) {
 			console.log(parseInt(this.state.additional_interest_rate));
-			let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
-			console.log('total interestrate', totalInterestRate);
-			console.log((totalInterestRate / 1000));
-			let loanWithInterest = parseInt(this.state.loan) * (totalInterestRate / 1000);
+
+			loanWithInterest += loanWithInterest - (loanWithInterest * (totalInterestRate / 10000));
 			console.log(loanWithInterest);
 			interestsInEur += loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
 			console.log('interestsInEur',interestsInEur);
 		}
-  	loanResult = interestsInEur + parseInt(this.state.loan);
+  	loanResult = loanWithInterest;
 		return +loanResult;
 	}
 	// Change name of this
@@ -66,7 +68,7 @@ class Loans extends React.Component {
 		this.setState({total_loan: result})
 		event.preventDefault();
 
-		// Save to local storage when something has been changed
+		// Save to local storage when  something has been changed
 		storage.saveState(this.componentName, this.state)
 	}
 
