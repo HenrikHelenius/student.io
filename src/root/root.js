@@ -18,10 +18,10 @@ function Root() {
 			</header>
 
 			<main className="grid">
-				<StudentBenefits></StudentBenefits>
+				<Bank></Bank>
 				<HousingBenefits></HousingBenefits>
 				<Loans></Loans>
-				<Bank></Bank>
+				<StudentBenefits></StudentBenefits>
 			</main>
 		</div>
 	);
