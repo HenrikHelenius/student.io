@@ -1,20 +1,24 @@
 import React from 'react';
 import './loans.scss';
+
+import LoansVisualiser from "../loans-visualiser/loans-visualiser";
+
 import storage from "../helpers/localStorage.helper";
 
-
 class Loans extends React.Component {
+	// For local storage
+	componentName = 'Loans';
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			loan: 0,
 			total_loan: 0,
-			interest_rate:0,
-			duration_of_studies:0,
-			duration_after_studies:0,
+			interest_rate: 0,
+			duration_of_studies: 0,
+			duration_after_studies: 0,
 		};
 
-		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -33,10 +37,6 @@ class Loans extends React.Component {
 
 	//// Events
 
-	handleChange(event) {
-		this.setState({value: event.target.value});
-	}
-
 	handleSubmit(event) {
 		const result = this.calculateShit();
 		alert('Result is: ' + result); // TODO: set to state or something
@@ -44,13 +44,15 @@ class Loans extends React.Component {
 
 		// Save to local storage when something has been changed
 		storage.saveState(this.componentName, this.state)
-
 	}
 
 	render() {
 		return (
 			<section className="loans">
-				Iiro
+
+				<LoansVisualiser state={this.state}>
+				</LoansVisualiser>
+
 				<form onSubmit={this.handleSubmit}>
 					<h1> Modify your loan details </h1>
 					<div>
@@ -60,7 +62,7 @@ class Loans extends React.Component {
 								type="number"
 								min="1"
 								max="10"
-								placeholder="test"
+								placeholder="Years"
 								onChange={e => this.setState({duration_of_studies: e.target.value})}
 								value={this.state.duration_of_studies}
 							/>
@@ -72,8 +74,7 @@ class Loans extends React.Component {
 							<input
 								type="number"
 								min="1"
-								max="10"
-								placeholder="test"
+								placeholder="Years"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
 							/>
@@ -87,9 +88,9 @@ class Loans extends React.Component {
 								min="0"
 								max="100"
 								step="0.01"
-								placeholder="test"
-								onChange={e => this.setState({children: e.target.value})}
-								value={this.state.children}
+								placeholder="Years"
+								onChange={e => this.setState({interest_rate: e.target.value})}
+								value={this.state.interest_rate}
 							/>
 						</div>
 					</div>
@@ -98,9 +99,8 @@ class Loans extends React.Component {
 							Time to pay back the loan (in years)
 							<input
 								type="number"
-								min="1"
-								max="10"
-								placeholder="test"
+								min="0"
+								placeholder="Years"
 								onChange={e => this.setState({duration_after_studies: e.target.value})}
 								value={this.state.duration_after_studies}
 							/>

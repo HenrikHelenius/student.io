@@ -20,6 +20,7 @@ class HousingBenefits extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -36,47 +37,44 @@ class HousingBenefits extends React.Component {
 			[951, 903, 734, 651],
 			[1111, 1054, 869, 775],
 			[139, 132, 119, 114]
-		]
-
+		];
 
 		const baseExcess = () => {
-
-			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 22 * this.state.children));
-		}
+			return 0.42 * ((this.state.income - 300) - (597 + 99 * this.state.adults + 221 * this.state.children));
+		};
 
 		/**
 		 * This check household
 		 */
 		const householdSize = () => {
-
-			return this.state.adults + this.state.children;
+			return +this.state.adults + +this.state.children;
 		}
 
 		const okeyed = () => {
 
-			const max = 1 - householdSize();
-			const kommungrupp = 1 - this.state.kommun;
-
-			if (this.state.rent < arr[max][kommungrupp]) return this.state.rent
+			const max = householdSize() - 1
+			const kommungrupp = this.state.kommun - 1
+			if (householdSize() <= 4 && this.state.rent < arr[max][kommungrupp]) return this.state.rent;
 			else {
-				if (householdSize > 4) {
-					const allowance = arr[max][kommungrupp] + 5 * arr[5][kommungrupp]
+				if (householdSize() > 4) {
+					const allowance = arr[3][kommungrupp] + (householdSize() - 4) * arr[4][kommungrupp];
 					return allowance
 				} else {
 					return arr[max][kommungrupp]
 				}
 			}
 
-		}
+		};
 
 		const benefit = () => {
-			alert('Fuck me benefit')
+			alert('Fuck me benefit');
 			const okey = okeyed();
 			const base = baseExcess();
-			return okey - base;
-		}
-
+			return (okey - base) * 0.80
+		};
+		console.log('This is size: ' + householdSize());
 		return benefit();
+
 	}
 
 	//// Events
@@ -94,8 +92,9 @@ class HousingBenefits extends React.Component {
 		return (
 			<section className="housing-benefits">
 				Kasper
-Children
+
 				<form onSubmit={this.handleSubmit}>
+					Children
 					<input
 						type="number"
 						min="0"
@@ -104,22 +103,16 @@ Children
 						onChange={e => this.setState({ children: e.target.value })}
 						value={this.state.children}
 					/>
-					<input type="submit" value="Submit" />
-				</form>
-				Adults
-				<form onSubmit={this.handleSubmit}>
+					Adults
 					<input
 						type="number"
-						min="0"
-						max="10"
+						min="1"
+						max="4"
 						placeholder="Adults"
 						onChange={e => this.setState({ adults: e.target.value })}
 						value={this.state.adults}
 					/>
-					<input type="submit" value="Submit" />
-				</form>
-				Kommun
-				<form onSubmit={this.handleSubmit}>
+					Kommun
 					<input
 						type="number"
 						min="1"
@@ -128,10 +121,7 @@ Children
 						onChange={e => this.setState({ kommun: e.target.value })}
 						value={this.state.kommun}
 					/>
-					<input type="submit" value="Submit" />
-				</form>
-				Income
-				<form onSubmit={this.handleSubmit}>
+					Income
 					<input
 						type="number"
 
@@ -139,10 +129,7 @@ Children
 						onChange={e => this.setState({ income: e.target.value })}
 						value={this.state.income}
 					/>
-					<input type="submit" value="Submit" />
-				</form>
-				Rent
-				<form onSubmit={this.handleSubmit}>
+					Rent
 					<input
 						type="number"
 
@@ -152,6 +139,7 @@ Children
 					/>
 					<input type="submit" value="Submit" />
 				</form>
+
 
 			</section>
 		);
