@@ -4,10 +4,14 @@ import './loans-visualiser.scss';
 class LoansVisualiser extends React.Component {
 	render() {
 		return (
-			<article className="card">
+			<article className={this.props.state.editHidden ? 'card' : 'card hidden'}>
 
 				<p>
-					Total loans: {this.props.state.total_loan}
+					Total loan {this.props.state.loan}
+					<br />
+					Your total cost of loan  {this.props.state.total_loan}
+					<br />
+					Hyvitys {this.props.state.refund}
 				</p>
 
 			</article>

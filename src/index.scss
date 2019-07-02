@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
-$color-initial: #fff !default
-$color-primary: #1ee3cf !default
-$color-secondary: #0d3f67 !default
-$color-tertiary: #6b48ff !default
+$pink: #E47E81;
+
+$color-initial: white !default
+$color-primary: #306094 !default
+$color-secondary: #0C2E67 !default
+$color-tertiary: #CC6063 !default
 $color-quaternary: #d1d1d1 !default
 $color-quinary: #e1e1e1 !default
 
@@ -12,4 +14,69 @@ $color-quinary: #e1e1e1 !default
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
+	padding: 2em;
+}
+
+* {
+	transition: background-color 0.3s ease-in-out;
+}
+
+header {
+	margin: 2em auto;
+	max-width: 500px;
+
+	h1 {
+		color: $pink;
+	}
+}
+
+$card-margin: 1em;
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+	max-width: 1200px;
+	justify-content: space-around;
+
+	section {
+		display: contents;
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		max-width: 450px;
+
+		@media(min-width: 600px) {
+			width: 70%;
+		}
+
+		@media(min-width: 900px) {
+			width: calc(50% - 2 * #{ $card-margin });
+		}
+	}
+}
+
+.card {
+	margin: 3em $card-margin;
+	padding: 2em;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1), 0 0 0 0 transparent;
+	border-radius: .4rem;
+
+	h3 {
+		color: $pink;
+	}
+}
+
+svg {
+	max-width: 100%;
+	height: auto;
+	margin: 1em 0;
+}
+
+.hidden {
+	display: none !important;
 }
