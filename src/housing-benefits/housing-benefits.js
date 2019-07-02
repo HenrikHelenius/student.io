@@ -15,10 +15,14 @@ class HousingBenefits extends React.Component {
 			income: 0,
 			rent: 0,
 			unemployed: 0,
+			housing: 0,
+			total: 0,
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
+
+
 
 	componentDidMount() {
 		// Load state
@@ -74,16 +78,28 @@ class HousingBenefits extends React.Component {
 			return (okeyed() - baseExcess()) * 0.80
 		};
 
+
 		return benefit();
 
 	}
+
+	calculateTotalIncome() {
+		return +this.state.income + +this.state.unemployed + +this.state.housing
+	}
+
+
 
 	//// Events
 
 	handleSubmit(event) {
 		const result = this.calculateShit();
-		alert('Result is: ' + result); // TODO: set to state or something
+
+		this.setState({ housing: result })
+		const calculateTotal = this.calculateTotalIncome
+		this.setState({ total: calculateTotal })
+
 		event.preventDefault();
+
 
 		// Save to local storage when something has been changed
 		storage.saveState(this.componentName, this.state)
@@ -155,6 +171,15 @@ class HousingBenefits extends React.Component {
 
 						<input type="submit" value="Submit" />
 					</form>
+					<h3>
+						Total income {this.state.total}
+						<br />
+						Your total housing benefit is  {this.state.housing}
+						<br />
+
+
+					</h3>
+
 				</article>
 
 			</section>
