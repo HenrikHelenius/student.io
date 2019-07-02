@@ -176,6 +176,7 @@ class StudentBenefits extends React.Component {
 	}
 
 	render() {
+    const tuki = this.opintoTuki()
 		return (
 			<section className="student-benefits">
 
@@ -187,14 +188,47 @@ class StudentBenefits extends React.Component {
 					</figure>
 
 					<form onSubmit={this.handleSubmit}>
-						<label>Independent?</label>
+						<label htmlFor="children">Do you have children?</label>
 						<input
+              name="children"
 							type="checkbox"
-							onChange={e => this.setState({ x: e.target.x })} //todo
+							onChange={e => this.setState({ children: e.target.value })} //todo
 							value={this.state.children}
+						/>
+						<label htmlFor="isUniversity">Are you studying at University?</label>
+						<input
+              name="isUniversity"
+							type="checkbox"
+							onChange={e => this.setState({ isUniversity: e.target.value })} //todo
+							value={this.state.isUniversity}
+						/>
+						<label htmlFor="age">Age</label>
+						<input
+              name="age"
+							type="number"
+							placeholder="cAge"
+							onChange={e => this.setState({ age: e.target.value })}
+							value={this.state.age}
+						/>
+						<label htmlFor="income">Parent Income</label>
+						<input
+              name="income"
+							type="number"
+							placeholder="Income"
+							onChange={e => this.setState({ parentIncome: e.target.value })}
+							value={this.state.parentIncome}
+						/>
+						<label htmlFor="married">Are you married?</label>
+						<input
+              name="married"
+							type="checkbox"
+							onChange={e => this.setState({ isMarried: e.target.value })} //todo
+							value={this.state.isMarried}
 						/>
 						<input type="submit" value="Submit" />
 					</form>
+          <h2>Calculated Benefits:</h2>
+          <p>{tuki}</p>
 				</article>
 
 			</section>
