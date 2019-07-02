@@ -49,13 +49,13 @@ class HousingBenefits extends React.Component {
 		 */
 		const householdSize = () => {
 
-			return this.state.adults + this.state.children
+			return this.state.adults + this.state.children;
 		}
 
 		const okeyed = () => {
 
-			const max = 1 - householdSize()
-			const kommungrupp = 1 - this.state.kommun
+			const max = 1 - householdSize();
+			const kommungrupp = 1 - this.state.kommun;
 
 			if (this.state.rent < arr[max][kommungrupp]) return this.state.rent
 			else {
@@ -71,9 +71,9 @@ class HousingBenefits extends React.Component {
 
 		const benefit = () => {
 			alert('Fuck me benefit')
-			const okey = okeyed()
-			const base = baseExcess()
-			return okey - base
+			const okey = okeyed();
+			const base = baseExcess();
+			return okey - base;
 		}
 
 		return benefit();
