@@ -24,8 +24,6 @@ class Loans extends React.Component {
 			loan_yearly_fixed_fee:33,
 		};
 
-
-
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -37,16 +35,19 @@ class Loans extends React.Component {
 	//// Own business logic
 	yearlyLoanCalculation(){
 		let loanResult = 0;
+		let interestsInEur = 0;
 		let totalYears = parseInt(this.state.duration_of_studies) + parseInt(this.state.duration_after_studies);
 		for (var i = 0; i < totalYears; i++) {
 			console.log(parseInt(this.state.additional_interest_rate));
 			let totalInterestRate = parseInt(this.state.additional_interest_rate) + (this.state.interest_rate * 100);
 			console.log('total interestrate', totalInterestRate);
-			let loanWithInterest = parseInt(this.state.loan) * (totalInterestRate / 100);
+			console.log((totalInterestRate / 1000));
+			let loanWithInterest = parseInt(this.state.loan) * (totalInterestRate / 1000);
 			console.log(loanWithInterest);
-			loanResult += parseInt(this.state.loan) + loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
+			interestsInEur += loanWithInterest + parseInt(this.state.loan_yearly_fixed_fee);
+			console.log('interestsInEur',interestsInEur);
 		}
-
+  	loanResult = interestsInEur + parseInt(this.state.loan);
 		return +loanResult;
 	}
 	// Change name of this
@@ -62,6 +63,7 @@ class Loans extends React.Component {
 
 		const result = this.yearlyLoanCalculation();
 		alert('Result is: ' + result); // TODO: set to state or something
+		this.setState({total_loan: result})
 		event.preventDefault();
 
 		// Save to local storage when something has been changed
@@ -76,9 +78,11 @@ class Loans extends React.Component {
 				</LoansVisualiser>
 
 				<form onSubmit={this.handleSubmit}>
-					<h1> Modify your loan details </h1>
+					<h3>
+						Modify your loan details
+					</h3>
 					<div>
-						<div className="label">
+						<label>
 							Amount of years studying (in years)
 							<input
 								type="number"
@@ -88,39 +92,37 @@ class Loans extends React.Component {
 								onChange={e => this.setState({duration_of_studies: e.target.value})}
 								value={this.state.duration_of_studies}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
+						<label>
 							Amount of student loan
 							<input
 								type="number"
-								min="0"
-								max="100000"
 								min="1"
+								max="100000"
 								placeholder="Years"
 								onChange={e => this.setState({loan: e.target.value})}
 								value={this.state.loan}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
+						<label>
 							Interest rate %
 							<input
 								type="number"
 								min="0"
 								max="100"
-								step="0.1"
 								step="0.01"
 								placeholder="Years"
 								onChange={e => this.setState({interest_rate: e.target.value})}
 								value={this.state.interest_rate}
 							/>
-						</div>
+						</label>
 					</div>
 					<div>
-						<div className="label">
+						<label className="label">
 							Time to pay back the loan (in years)
 							<input
 								type="number"
@@ -130,7 +132,7 @@ class Loans extends React.Component {
 								onChange={e => this.setState({duration_after_studies: e.target.value})}
 								value={this.state.duration_after_studies}
 							/>
-						</div>
+						</label>
 					</div>
 					<input type="submit" value="Submit" />
 

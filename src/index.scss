@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+$color-initial: #fff !default
+$color-primary: #1ee3cf !default
+$color-secondary: #0d3f67 !default
+$color-tertiary: #6b48ff !default
+$color-quaternary: #d1d1d1 !default
+$color-quinary: #e1e1e1 !default
+
+
+@import '../node_modules/milligram/src/milligram.sass';
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}

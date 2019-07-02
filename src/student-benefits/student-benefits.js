@@ -36,6 +36,7 @@ class StudentBenefits extends React.Component {
 	//Only for 300 Yleinen tutkimus (add support for others later)
 	//Alempi, Ylempi, Total.
 	supportMonths = [30, 21, 48];
+
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -48,8 +49,7 @@ class StudentBenefits extends React.Component {
 		const { parentIncome } = this.state;
 		if (parentIncome < 41400) {
 			return 100; //not real value
-		}
-		else {
+		} else {
 			return 0
 		}
 	}
@@ -76,8 +76,7 @@ class StudentBenefits extends React.Component {
 		}
 		else if (age < 17) {
 			return this.parentIncomeInfluence();
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
@@ -100,7 +99,19 @@ class StudentBenefits extends React.Component {
 	render() {
 		return (
 			<section className="student-benefits">
-				<Checkbox name="independent" />
+
+				<article className="card">
+					<form onSubmit={this.handleSubmit}>
+						<label>Independent?</label>
+						<input
+							type="checkbox"
+							onChange={e => this.setState({ x: e.target.x })} //todo
+							value={this.state.children}
+						/>
+						<input type="submit" value="Submit" />
+					</form>
+				</article>
+
 			</section>
 		);
 	}
@@ -113,7 +124,7 @@ class StudentBenefits extends React.Component {
 4. change onChange={e => this.setState({x: e.target.value})}
 */
 
-/*         	render() {
+/*         	render() {
 		return (
 			<section className="student-benefits">
 				Basti
@@ -128,7 +139,6 @@ class StudentBenefits extends React.Component {
 					/>
 					<input type="submit" value="Submit"/>
 				</form>
-
 */
 
 /*

@@ -19,7 +19,6 @@ class HousingBenefits extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-
 	componentDidMount() {
 		// Load state
 		this.setState(storage.loadState(this.componentName));
@@ -47,7 +46,7 @@ class HousingBenefits extends React.Component {
 		 */
 		const householdSize = () => {
 			return +this.state.adults + +this.state.children;
-		}
+		};
 
 		const okeyed = () => {
 			const max = householdSize() - 1
@@ -91,55 +90,53 @@ class HousingBenefits extends React.Component {
 	render() {
 		return (
 			<section className="housing-benefits">
-				Kasper
 
-				<form onSubmit={this.handleSubmit}>
-					Children
-					<input
-						type="number"
-						min="0"
-						max="10"
-						placeholder="Children"
-						onChange={e => this.setState({ children: e.target.value })}
-						value={this.state.children}
-					/>
-					Adults
-					<input
-						type="number"
-						min="1"
-						max="4"
-						placeholder="Adults"
-						onChange={e => this.setState({ adults: e.target.value })}
-						value={this.state.adults}
-					/>
-					Kommun
-					<input
-						type="number"
-						min="1"
-						max="4"
-						placeholder="Kommun"
-						onChange={e => this.setState({ kommun: e.target.value })}
-						value={this.state.kommun}
-					/>
-					Income
-					<input
-						type="number"
-
-						placeholder="Income"
-						onChange={e => this.setState({ income: e.target.value })}
-						value={this.state.income}
-					/>
-					Rent
-					<input
-						type="number"
-
-						placeholder="Income"
-						onChange={e => this.setState({ rent: e.target.value })}
-						value={this.state.rent}
-					/>
-					<input type="submit" value="Submit" />
-				</form>
-
+				<article className="card">
+					<form onSubmit={this.handleSubmit}>
+						<label htmlFor="">Children</label>
+						<input
+							type="number"
+							min="0"
+							max="10"
+							placeholder="Children"
+							onChange={e => this.setState({children: e.target.value})}
+							value={this.state.children}
+						/>
+						<label htmlFor="">Adults</label>
+						<input
+							type="number"
+							min="1"
+							max="4"
+							placeholder="Adults"
+							onChange={e => this.setState({adults: e.target.value})}
+							value={this.state.adults}
+						/>
+						<label htmlFor="">Kommun</label>
+						<input
+							type="number"
+							min="1"
+							max="4"
+							placeholder="Kommun"
+							onChange={e => this.setState({kommun: e.target.value})}
+							value={this.state.kommun}
+						/>
+						<label htmlFor="">Income</label>
+						<input
+							type="number"
+							placeholder="Income"
+							onChange={e => this.setState({income: e.target.value})}
+							value={this.state.income}
+						/>
+						<label htmlFor="">Rent</label>
+						<input
+							type="number"
+							placeholder="Income"
+							onChange={e => this.setState({rent: e.target.value})}
+							value={this.state.rent}
+						/>
+						<input type="submit" value="Submit"/>
+					</form>
+				</article>
 
 			</section>
 		);

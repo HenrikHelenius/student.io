@@ -9,14 +9,16 @@ import Bank from "../bank/bank";
 function Root() {
 	return (
 		<main className="root">
-			<p>Make new components, just add them here</p>
-			<br/><br/>
+			<header>
+				<h1>Student.io</h1>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque, blanditiis corporis cupiditate dolore dolorum exercitationem id incidunt ipsum maxime minima nulla obcaecati odio pariatur quos recusandae sed vel voluptate.
+				</p>
+			</header>
+
 			<StudentBenefits></StudentBenefits>
-			<br/><br/><br/><br/>
 			<HousingBenefits></HousingBenefits>
-			<br/><br/><br/><br/>
 			<Loans></Loans>
-			<br/><br/><br/><br/>
 			<Bank></Bank>
 		</main>
 	);
