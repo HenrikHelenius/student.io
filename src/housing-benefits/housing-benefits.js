@@ -1,7 +1,7 @@
 import React from 'react';
 import './housing-benefits.scss';
 
-import saveStateToStorage from '../localStorage.helper';
+import storage from '../helpers/localStorage.helper';
 
 class HousingBenefits extends React.Component {
 	// For local storage
@@ -20,6 +20,10 @@ class HousingBenefits extends React.Component {
 	}
 
 	// Om bassjälvrisken är mindre 10€ beaktas den inte
+	componentDidMount() {
+		// Load state
+		this.setState(storage.loadState(this.componentName));
+	}
 
 	//// Own business logic
 
@@ -40,17 +44,15 @@ class HousingBenefits extends React.Component {
 
 
 		const baseExcess = () => {
-			return 0.42 * (salary - (597 + 99 * this.state.adults + 22 * this.state.children));
+			return 0.42 * (salary() - (597 + 99 * this.state.adults + 22 * this.state.children));
 		}
 
 		/**
 		 * This check household
 		 */
 		const householdSize = () => {
-			console.log(this.state.adults + this.state.children)
 			return this.state.adults + this.state.children
 		}
-		console.log(householdSize)
 
 		const okeyed = (kommungrupp, rent) => {
 			const max = 1 - householdSize()
@@ -83,7 +85,7 @@ class HousingBenefits extends React.Component {
 		event.preventDefault();
 
 		// Save to local storage when something has been changed
-		saveStateToStorage(this.state, this.componentName)
+		storage.saveState(this.componentName, this.state)
 	}
 
 
