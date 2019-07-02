@@ -99,7 +99,7 @@ class HousingBenefits extends React.Component {
 							min="0"
 							max="10"
 							placeholder="Children"
-							onChange={e => this.setState({children: e.target.value})}
+							onChange={e => this.setState({ children: e.target.value })}
 							value={this.state.children}
 						/>
 						<label htmlFor="">Adults</label>
@@ -108,7 +108,7 @@ class HousingBenefits extends React.Component {
 							min="1"
 							max="4"
 							placeholder="Adults"
-							onChange={e => this.setState({adults: e.target.value})}
+							onChange={e => this.setState({ adults: e.target.value })}
 							value={this.state.adults}
 						/>
 						<label htmlFor="">Kommun</label>
@@ -117,24 +117,33 @@ class HousingBenefits extends React.Component {
 							min="1"
 							max="4"
 							placeholder="Kommun"
-							onChange={e => this.setState({kommun: e.target.value})}
+							onChange={e => this.setState({ kommun: e.target.value })}
 							value={this.state.kommun}
 						/>
 						<label htmlFor="">Income</label>
 						<input
 							type="number"
 							placeholder="Income"
-							onChange={e => this.setState({income: e.target.value})}
+							onChange={e => this.setState({ income: e.target.value })}
 							value={this.state.income}
 						/>
+						{
+							// Styla dom här lite inåt
+							/* Arbetslöshets
+						Sairausvakuutuksen päiväraha, äitiysraha tai muu päiväraha
+						Yrittäjätulo (maatalous tai muu)
+						Lasten kotihoidontuki
+						Eläke
+						Opintoraha
+						Pääoma- tai muu tulo */}
 						<label htmlFor="">Rent</label>
 						<input
 							type="number"
 							placeholder="Income"
-							onChange={e => this.setState({rent: e.target.value})}
+							onChange={e => this.setState({ rent: e.target.value })}
 							value={this.state.rent}
 						/>
-						<input type="submit" value="Submit"/>
+						<input type="submit" value="Submit" />
 					</form>
 				</article>
 
