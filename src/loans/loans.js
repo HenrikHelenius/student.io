@@ -41,12 +41,10 @@ class Loans extends React.Component {
 		const result = this.calculateShit();
 		alert('Result is: ' + result); // TODO: set to state or something
 		event.preventDefault();
-<<<<<<< HEAD
-=======
 
 		// Save to local storage when something has been changed
 		storage.saveState(this.componentName, this.state)
->>>>>>> c3c6d46d62aaa89e3829a53cee53a365462835c5
+
 	}
 
 	render() {
