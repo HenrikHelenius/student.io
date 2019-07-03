@@ -21,7 +21,6 @@ class Bank extends React.Component {
 		this.setState({ result1: result })
 		event.preventDefault();
 		// Save to local storage when something has been changed
-
 	}
 
 	componentDidMount() {
@@ -96,7 +95,7 @@ class Bank extends React.Component {
 					</form>
 
 					<p>
-						Total income: <b>{this.state.result}€</b>
+						Total income: <b>{this.compoundInterest()}€</b>
 					</p>
 
 				</article>
